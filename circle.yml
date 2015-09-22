@@ -11,13 +11,13 @@ dependencies:
     # install AWS CLI
     - sudo pip install awscli
     # build the image
-    #- docker build -t osahyoun/docker_demo:$CIRCLE_SHA1 .
-
-    - if [[ -e ~/docker/image.tar ]]; then \
-        docker load -i ~/docker/image.tar; fi
     - docker build -t osahyoun/docker_demo:$CIRCLE_SHA1 .
-    - mkdir -p ~/docker; docker save osahyoun/docker_demo\
-        > ~/docker/image.tar
+
+    #- if [[ -e ~/docker/image.tar ]]; then \
+        #docker load -i ~/docker/image.tar; fi
+    #- docker build -t osahyoun/docker_demo:$CIRCLE_SHA1 .
+    #- mkdir -p ~/docker; docker save osahyoun/docker_demo\
+        #> ~/docker/image.tar
 test:
   override:
     # tests the built image
