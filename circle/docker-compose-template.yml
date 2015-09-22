@@ -1,14 +1,7 @@
 web:
-  image: soutech/champaign_web:$CIRCLE_SHA1
+  image: osahyoun/docker_demo:$CIRCLE_SHA1
   links:
     - db
-  command: /myapp/circle/run-tests
+  command: /app/circle/run-tests
   env_file:
     - test.env
-
-db:
-  image: postgres
-  ports:
-    - "5432"
-  environment:
-    POSTGRES_DB: demo_test

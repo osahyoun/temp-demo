@@ -5,19 +5,15 @@ machine:
 dependencies:
   override:
     - docker info
-    # our circle setup uses compose - install it
-    - sudo pip install --upgrade docker-compose==1.2.0
     # install AWS CLI
     - sudo pip install awscli
     # build the image
-    - docker build -t soutech/champaign_web:$CIRCLE_SHA1 .
+    - docker build -t osahyoun/docker_demo:$CIRCLE_SHA1 .
 
 test:
   override:
     # tests the built image
-    - cat circle/docker-compose-template.yml | envsubst > circle/docker-compose.yml
     - cat Dockerrun.aws.json.template | envsubst > Dockerrun.aws.json
-    - annotate-output docker-compose -f circle/docker-compose.yml run web
 
 database:
   override:
