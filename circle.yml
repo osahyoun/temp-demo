@@ -3,13 +3,21 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - "~/docker"
+
   override:
     - docker info
     # install AWS CLI
     - sudo pip install awscli
     # build the image
-    - docker build -t osahyoun/docker_demo:$CIRCLE_SHA1 .
+    #- docker build -t osahyoun/docker_demo:$CIRCLE_SHA1 .
 
+    - if [[ -e ~/docker/image.tar ]]; then \
+        docker load -i ~/docker/image.tar; fi
+    - ./build/build-docker.sh
+    - mkdir -p ~/docker; docker save osahyoun/docker_demo\
+        > ~/docker/image.tar
 test:
   override:
     # tests the built image
